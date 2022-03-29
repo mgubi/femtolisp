@@ -18,7 +18,6 @@
 #include <sys/time.h>
 #endif /* !_OS_WINDOWS_ */
 
-#undef JL_DLLEXPORT /* avoid conflicting definition */
 #include "utf8proc.h"
 
 #ifdef __cplusplus
@@ -255,7 +254,7 @@ value_t fl_char_alpha(fl_context_t *fl_ctx, value_t *args, u_int32_t nargs)
 {
     argcount(fl_ctx, "char-alphabetic?", nargs, 1);
     cprim_t *cp = (cprim_t*)ptr(args[0]);
-    if (!iscprim(args[0]) || cp_class(cp) != wchartype)
+    if (!iscprim(args[0]) || cp_class(cp) != fl_ctx->wchartype)
         type_error(fl_ctx, "char-alphabetic?", "wchar", args[0]);
     return iswalpha(*(int32_t*)cp_data(cp)) ? fl_ctx->T : fl_ctx->F;
 }

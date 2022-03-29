@@ -476,9 +476,9 @@ MATH_FUNC_1ARG(asin)
 MATH_FUNC_1ARG(acos)
 MATH_FUNC_1ARG(atan)
 
-extern void stringfuncs_init(void);
-extern void table_init(void);
-extern void iostream_init(void);
+extern void stringfuncs_init(fl_context_t *fl_ctx);
+extern void table_init(fl_context_t *fl_ctx);
+extern void iostream_init(fl_context_t *fl_ctx);
 
 static builtinspec_t builtin_info[] = {
     { "environment", fl_global_env },

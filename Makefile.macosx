@@ -13,7 +13,7 @@ LLT = $(LLTDIR)/libllt.a
 CONFIG = -DBITS64 -D__CPU__=686 -I$(CARBON_HEADERS)
 FLAGS = -falign-functions -Wall -Wno-strict-aliasing -I$(LLTDIR) $(CFLAGS) -DUSE_COMPUTED_GOTO $(CONFIG)
 LIBFILES = $(LLT)
-LIBS = $(LIBFILES) -lm -framework ApplicationServices
+LIBS = $(LIBFILES) -lm -luv -framework ApplicationServices
 
 DEBUGFLAGS = -g -DDEBUG $(FLAGS)
 SHIPFLAGS = -O2 -DNDEBUG $(FLAGS)

@@ -196,7 +196,7 @@ static int lengthestimate(fl_context_t *fl_ctx, value_t v)
     // get the width of an expression if we can do so cheaply
     if (issymbol(v))
         return u8_strwidth(symbol_name(fl_ctx, v));
-    if (iscprim(v) && cp_class((cprim_t*)ptr(v)) == wchartype)
+    if (iscprim(v) && cp_class((cprim_t*)ptr(v)) == fl_ctx->wchartype)
         return 4;
     return -1;
 }
@@ -449,14 +449,14 @@ void fl_print_child(fl_context_t *fl_ctx, ios_t *f, value_t v)
         break;
     case TAG_CPRIM:
         if (v == UNBOUND)
-            outs("#<undefined>", f);
+            outs(fl_ctx, "#<undefined>", f);
         else
             cvalue_print(fl_ctx, f, v);
         break;
     case TAG_CVALUE:
     case TAG_VECTOR:
     case TAG_CONS:
-        if (!print_princ && print_circle_prefix(fl_ctx, f, v)) break;
+        if (!fl_ctx->print_princ && print_circle_prefix(fl_ctx, f, v)) break;
         if (isvector(v)) {
             outc(fl_ctx, '[', f);
             int newindent = fl_ctx->HPOS, est;
@@ -822,7 +822,7 @@ void fl_print(fl_context_t *fl_ctx, ios_t *f, value_t v)
     fl_ctx->P_LEVEL = 0;
 
     fl_ctx->printlabel = 0;
-    if (!print_princ) print_traverse(fl_ctx, v);
+    if (!fl_ctx->print_princ) print_traverse(fl_ctx, v);
     fl_ctx->HPOS = fl_ctx->VPOS = 0;
 
     fl_print_child(fl_ctx, f, v);

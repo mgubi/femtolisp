@@ -44,7 +44,7 @@ static void set_io_wait_begin(int v)
 /* OS-level primitive wrappers */
 
 #if defined(__APPLE__) || defined(_OS_WINDOWS_)
-JL_DLLEXPORT void *memrchr(const void *s, int c, size_t n)
+void *memrchr(const void *s, int c, size_t n)
 {
     const unsigned char *src = (unsigned char*)s + n;
     unsigned char uc = c;
